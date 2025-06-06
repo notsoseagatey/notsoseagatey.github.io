@@ -1,1 +1,2 @@
-# ezopencore.github.io
+# A very much simplified OpenCore guide for idiots
+==================================================
