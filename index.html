@@ -3,14 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>notsoseagatey</title>
+    <title>notsoseagatey — Portfolio</title>
     <link rel="stylesheet" href="main.css">
+    <script defer src="app.js"></script>
+    <meta name="description" content="Portfolio of notsoseagatey — projects, about, contact">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1>lol</h1>
-    <p>i have no idea how to build a website</p>
-    <p>in the meantime, check out my friend's website:</p>
-    <a href="https://sheepex.net">here</a>
-    <p>alright thanks for checking out, have a good day. oh yeah, here's an epic song.</p>
-    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2yuxTYk8czQ6nB3Z5X6SFf?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<body class="light-theme">
+
+    <button class="btn" aria-label="Toggle theme">Dark</button>
+
+    <header class="site-header">
+        <nav class="nav container">
+            <a class="logo" href="#">notsoseagatey</a>
+            <ul class="nav-list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero container">
+            <div class="hero-content">
+                <p class="lead"></p>
+                <p>
+                    <a class="cta" href="#projects">View Projects</a>
+                    <a class="muted" href="#contact">Get In Touch</a>
+                </p>
+            </div>
+            <div class="hero-art">
+                <img src="https://via.placeholder.com/480x320?text=Project+Preview" alt="Project preview">
+            </div>
+        </section>
+
+        <section id="projects" class="projects container">
+            <h2>Selected Projects</h2>
+            <div class="grid">
+                <article class="card">
+                    <img src="https://github.com/notsoseagatey/notsoseagatey.github.io/blob/main/Assets/Screenshot%202026-01-08%20at%2012.40.20.png?raw=true" alt="Type 1 LED controller">
+                    <div class="card-body">
+                        <h3>Bus LED controller - Type 1</h3>
+                        <p>Realistic and feature-packed. Supports up to 10 routes.</p>
+                        <p class="card-links"><a href="#">Demo</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="https://github.com/notsoseagatey/notsoseagatey.github.io/blob/main/Assets/Screenshot%202026-01-08%20at%2012.40.40.png?raw=true" alt="Type 2 LED controller">
+                    <div class="card-body">
+                        <h3>Bus LED Controller - Type 2</h3>
+                        <p>Simple controller supporting up to 12 routes.</p>
+                        <p class="card-links"><a href="#">Demo</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="https://via.placeholder.com/600x360?text=Project+3" alt="Placeholder">
+                    <div class="card-body">
+                        <h3>Placeholder name</h3>
+                        <p>Something. Not even decided.</p>
+                        <p class="card-links"><a href="#">Demo</a> · <a href="#">Code</a></p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="Contact" class="about container">
+            <h2>Contact</h2>
+            <p>For any inquiries regarding my work or for general talking</p>
+            <ul>
+                <li><a href="https://github.com/notsoseagatey">GitHub</a></li>
+                <li><a href="https://twitter.com/notsoseagatey">Twitter</a></li>
+                <li>Discord: @notsoseagatey</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <small>© 2026 notsoseagatey — No rights reserved</small>
+        </div>
+    </footer>
+
+</body>
 </html>

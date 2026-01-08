@@ -1,0 +1,74 @@
+:root{
+  --bg: #0f1724;
+  --surface: #0b1220;
+  --text: #e6eef8;
+  --muted: #a7b0bf;
+  --accent: #6ee7b7;
+  --glass: rgba(255,255,255,0.04);
+  --radius: 10px;
+  --container: 1100px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background:linear-gradient(135deg, rgba(15,23,36,0.92) 0%, rgba(11,18,32,0.94) 100%), url('https://github.com/notsoseagatey/notsoseagatey.github.io/blob/main/Assets/Screenshot%202026-01-08%20at%2012.40.56.png?raw=true') center/cover fixed;
+  background-attachment:fixed;
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+}
+
+.container{max-width:var(--container);margin:0 auto;padding:2rem}
+
+.site-header{position:sticky;top:0;background:linear-gradient(180deg, rgba(11,17,28,0.6), rgba(11,17,28,0.35));backdrop-filter: blur(6px);z-index:60}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0}
+.logo{font-weight:700;color:var(--text);text-decoration:none}
+.nav-list{display:flex;gap:1rem;margin:0;padding:0;list-style:none}
+.nav-list a{color:var(--muted);text-decoration:none}
+.nav-list a:hover{color:var(--text)}
+
+.hero{display:flex;gap:2rem;align-items:center;padding:4rem 0}
+.hero-content{flex:1}
+.hero-art{flex:1;text-align:right}
+.hero h1{font-size:2.25rem;margin:0 0 0.5rem}
+.lead{color:var(--muted);margin-bottom:1rem}
+.cta{display:inline-block;background:var(--accent);color:#022;padding:0.6rem 1rem;border-radius:8px;text-decoration:none;margin-right:0.6rem}
+.muted{color:var(--text);opacity:0.8;text-decoration:none}
+
+.projects h2,.about h2,.contact h2{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.card{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 18px rgba(2,6,23,0.6)}
+.card img{width:100%;height:auto;display:block}
+.card-body{padding:1rem}
+.card h3{margin:0 0 0.5rem}
+.card p{margin:0 0 0.75rem;color:var(--muted)}
+.card-links a{color:var(--accent);text-decoration:none}
+
+.about p{max-width:65ch;color:var(--muted)}
+.about ul{margin-top:0}
+
+.contact-form{display:grid;gap:0.75rem;max-width:520px}
+.contact-form label{display:block}
+.contact-form span{display:block;font-size:0.9rem;margin-bottom:0.3rem;color:var(--muted)}
+.contact-form input,.contact-form textarea{width:100%;padding:0.6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:var(--text)}
+.btn-submit{background:var(--accent);border:none;padding:0.6rem 1rem;border-radius:8px;color:#022;cursor:pointer}
+
+.site-footer{padding:2rem 0;color:var(--muted)}
+
+.form-message{margin-top:1rem;color:var(--accent)}
+
+/* Theme toggles */
+.light-theme{--bg:#f7fafc;--surface:#ffffff;--text:#0b1220;--muted:#4a5568;--accent:#06b6d4}
+.dark-theme{--bg:#0f1724;--surface:#0b1220;--text:#e6eef8;--muted:#9aa6b2;--accent:#6ee7b7}
+
+.btn{position:fixed;top:18px;right:18px;height:44px;width:44px;border-radius:12px;border:none;background:var(--surface);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(2,6,23,0.5)}
+
+@media (max-width:800px){
+  .hero{flex-direction:column;text-align:left}
+  .hero-art{text-align:left}
+  .nav-list{display:none}
+}
