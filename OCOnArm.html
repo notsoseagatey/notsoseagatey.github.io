@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://cdn.discordapp.com/avatars/1333823680324702219/85e911e8a0f700142e6d969c8a187a40.png?size=16" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide</title>
+    <link rel="stylesheet" href="main.css">
+    <script defer src="app.js"></script>
+    <meta name="description" content="Step-by-step guide">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .guide-section {
+            margin-bottom: 3rem;
+        }
+
+        .guide-header {
+            margin-bottom: 2rem;
+        }
+
+        .guide-header h1 {
+            margin: 0 0 0.5rem;
+            font-size: 2.25rem;
+        }
+
+        .guide-header p {
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .step {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 18px rgba(2,6,23,0.6);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--accent);
+            color: #022;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            margin: 0.5rem 0 1rem;
+            font-size: 1.25rem;
+        }
+
+        .step-content {
+            color: var(--muted);
+            min-height: 80px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(110, 231, 183, 0.2);
+        }
+
+        .step-content p {
+            margin: 0;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <header class="site-header">
+        <nav class="nav container">
+            <a class="logo" href="index.html">notsoseagatey</a>
+            <ul class="nav-list">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="guide-section container">
+            <div class="guide-header">
+                <h1>OpenCore on ARM guide</h1>
+                <p>Happy April Fools' Day!</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">-1</div>
+                    <h3>Introduction</h3>
+                    <div class="step-content">
+                        <p>While this may not exactly be an actual guide to install OpenCore on ARM (since it's actually literally impossible), here is a step-by-step guide on how you can achieve a fake screenshot like I did.</p>
+                        <img src="https://i.redd.it/zxczj1fhdlsg1.png" alt="Faked macOS specification showing Snapdragon X Elite processor">
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">0</div>
+                    <h3>Links to posts</h3>
+                    <div class="step-content">
+                        <p>Reddit post: <a href="https://www.reddit.com/r/hackintosh/comments/1s9mok4/installed_tahoe_on_an_arm_cpu/">Installed Tahoe on an ARM CPU by notsoseagatey on April 1st</a></p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Step 1</h3>
+                    <div class="step-content">
+                        <p>Make a backup of your current config.plist before starting. This is crucial since the tool we will be using will modify the plist as we do this guide.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Step 2</h3>
+                    <div class="step-content">
+                        <p>Grab a copy of <a href="https://github.com/corpnewt/CPU-Name">CPU-Name</a> and open it in Terminal:</p>
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.02.07.png?raw=true" alt="CPU-Name main screenshot">
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Step 3</h3>
+                    <div class="step-content">
+                        <p>Select your config.plist, then go ahead and return to the main menu, select change CPU name, then enter your desired ARM processor. You may ignore the warning saying that the CPU name exceeds 20 characters.</p>
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.03.15.png?raw=true" alt="CPU-Name plist selection screenshot">
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.03.20.png?raw=true" alt="CPU-Name after selection screenshot">
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.03.23.png?raw=true" alt="CPU-Name CPU name entry screenshot">
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.03.32.png?raw=true" alt="CPU-Name entry screenshot">
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.03.36.png?raw=true" alt="CPU-Name 20 character limit warning screenshot">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Step 4</h3>
+                    <div class="step-content">
+                        <p>Open your config.plist, head to DeviceProperties and go to your GPU root path.</p>
+                        <p>Next, add a string called "model" and put in the appropriate GPU model name.</p>
+                        <img src="https://github.com/notsoseagatey/PrivateAssets_nss/blob/main/images/Screenshot%202026-04-02%20at%2013.09.59.png?raw=true" alt="GPU model string">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Step 5</h3>
+                    <div class="step-content">
+                        <p>Save & reboot. Enjoy your fabricated system specifications.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>BONUS GUIDE:</h3>
+                    <div class="step-content">
+                        <p>Here's a pretty satirical <a href="https://www.youtube.com/watch?v=XmhraE7zXUM">video</a> on how you can create a config.plist from scratch in just 12 minutes:</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer container">
+        <p>&copy; 2026 notsoseagatey. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
