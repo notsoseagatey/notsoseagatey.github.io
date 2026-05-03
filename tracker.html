@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HBDSMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+        #map { width: 100vw; height: 100vh; }
+        .bus-icon {
+            background-color: #f1c40f;
+            border: 2px solid #333;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            transition: transform 0.3s linear;
+        }
+        .social-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 16px;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            z-index: 1000;
+            font-size: 0.95rem;
+        }
+        .social-footer span {
+            opacity: 0.9;
+        }
+        .social-footer a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        .social-footer a:hover {
+            border-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="social-footer">
+        <span></span>
+        <a href="https://www.roblox.com/share?code=4255d02175636a4b88f29c768512cf13&type=ExperienceDetails&stamp=1777805199849" target="_blank" rel="noreferrer">ROBLOX</a>
+        <a href="https://discord.gg/YVGPK77uwJ" target="_blank" rel="noreferrer">Discord</a>
+        <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 1. Map Setup (Centered on Hanoi Station)
+        const HANOI_STATION_LAT = 21.023801;
+        const HANOI_STATION_LNG = 105.841699;
+        const FIREBASE_URL = "https://hbds-bus-tracker-default-rtdb.firebaseio.com/buses.json";
+
+        const map = L.map('map').setView([HANOI_STATION_LAT, HANOI_STATION_LNG], 16);
+
+        // Load the real-world street map tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        let activeMarkers = {};
+        
+        // THE FIX: Define currentFilter so the script doesn't crash!
+        let currentFilter = "ALL"; 
+
+        // 2. The Conversion Math (Roblox Studs -> Real GPS)
+        // Add these at the very top of your script so they are global
+        function convertRobloxToGPS(x, z) {
+    // These constants are now locked based on your calibration
+    const studsToMeters = 0.13; 
+    const angleDegrees = 35;
+    
+    const metersPerDegreeLat = 111320;
+    const metersPerDegreeLng = 111320 * Math.cos(HANOI_STATION_LAT * (Math.PI / 180));
+
+    const angle = angleDegrees * (Math.PI / 180);
+
+    // 1. THE ROTATION MATRIX
+    // This aligns your Roblox 'Forward' with the True North of Hanoi
+    const rotatedX = x * Math.cos(angle) - z * Math.sin(angle);
+    const rotatedZ = x * Math.sin(angle) + z * Math.cos(angle);
+
+    // 2. THE GPS MAPPING
+    // Using your discovered axis alignment: 
+    // rotatedZ = Latitude, -rotatedX = Longitude
+    const latOffset = (rotatedZ * studsToMeters) / metersPerDegreeLat;
+    const lngOffset = (-rotatedX * studsToMeters) / metersPerDegreeLng;
+
+    return [HANOI_STATION_LAT + latOffset, HANOI_STATION_LNG + lngOffset];
+}   
+const STATIONS = [
+    { name: "Giap Bat", x: -18011, z: -26114, gps: [20.9851, 105.8415] },
+    { name: "Cau Giay", x: 21272, z: -10268, gps: [21.0305, 105.8032] },
+    { name: "Gia Lam", x: -8273, z: 28030, gps: [21.0475, 105.8788] },
+    { name: "My Dinh", x: 33780, z: -19997, gps: [21.0282, 105.7774] }
+];
+
+function debugCalibration(currentX, currentZ) {
+    STATIONS.forEach(station => {
+        let calculatedGPS = convertRobloxToGPS(station.x, station.z);
+        let errorLat = (calculatedGPS[0] - station.gps[0]) * 111320;
+        let errorLng = (calculatedGPS[1] - station.gps[1]) * 111320;
+        let totalError = Math.sqrt(errorLat**2 + errorLng**2);
+        
+        console.log(`[Calibration] ${station.name} Error: ${totalError.toFixed(2)} meters`);
+    });
+}
+
+        // 3. Fetch Data & Draw Sprites
+        async function fetchBuses() {
+            try {
+                const response = await fetch(FIREBASE_URL);
+                const data = await response.json();
+                if (!data) return;
+
+                const currentBusIds = new Set();
+                const now = Date.now(); // Get the current time on the website
+
+                // We changed the loop variable name to busId for clarity
+                for (const busId in data) {
+                    const bus = data[busId];
+
+                    // 1. FILTER: Is the data stale? (Older than 25 seconds)
+                    if (now - bus.lastPing > 25000) {
+                        continue; 
+                    }
+
+                    // 2. FILTER: Is a specific route selected?
+                    if (currentFilter !== "ALL" && bus.routeNum !== currentFilter) {
+                        continue; 
+                    }
+
+                    currentBusIds.add(busId);
+                    const coords = convertRobloxToGPS(bus.x, bus.z);
+                    
+                    // Pulls ${bus.plate} directly from the object
+                    const tooltipText = `<b>[${bus.routeNum}] ${bus.routeName}</b><br>Plate: ${bus.plate}`;
+
+                    const busIcon = L.divIcon({
+                        className: 'bus-icon',
+                        html: bus.routeNum,
+                        iconSize: [30, 24],
+                        iconAnchor: [15, 12]
+                    });
+
+                    // Track markers using the unique busId
+                    if (activeMarkers[busId]) {
+                        activeMarkers[busId].setLatLng(coords);
+                        activeMarkers[busId].setTooltipContent(tooltipText);
+                    } else {
+                        const marker = L.marker(coords, { icon: busIcon }).addTo(map);
+                        marker.bindTooltip(tooltipText, { direction: 'top', offset: [0, -10] });
+                        activeMarkers[busId] = marker;
+                    }
+                }
+
+                // Remove buses that disconnected or despawned
+                for (const busId in activeMarkers) {
+                    if (!currentBusIds.has(busId)) {
+                        map.removeLayer(activeMarkers[busId]);
+                        delete activeMarkers[busId];
+                    }
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch fleet data:", error);
+            }
+        }
+
+        // Update the map every 5 seconds
+        setInterval(fetchBuses, 5000);
+        fetchBuses(); // Initial load
+    </script>
+</body>
+</html>
