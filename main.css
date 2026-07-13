@@ -14,7 +14,7 @@ html,body{height:100%}
 body{
   margin:0;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  background:linear-gradient(135deg, rgba(15,23,36,0.92) 0%, rgba(11,18,32,0.94) 100%), url('https://github.com/notsoseagatey/notsoseagatey.github.io/blob/main/Assets/Screenshot%202026-01-08%20at%2012.40.56.png?raw=true') center/cover fixed;
+  background:linear-gradient(135deg, rgba(15,23,36,0.92) 0%, rgba(11,18,32,0.94) 100%), url('https://github.com/notsoseagatey/notsoseagatey.github.io/blob/main/Assets/Screenshot%202026-07-13%20at%2019.56.49.png?raw=true') center/cover fixed;
   background-attachment:fixed;
   color:var(--text);
   -webkit-font-smoothing:antialiased;
